@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html><head><title>LOCDESC</title></head><body>
+<h1>LOCDESC</h1>
+<script>
+(function () {
+  var L = (m) => console.log('__LOC__ ' + m);
+  var d = Object.getOwnPropertyDescriptor(location, 'href');
+  L('own href descriptor: ' + JSON.stringify(d ? { configurable: d.configurable, enumerable: d.enumerable, hasGet: !!d.get, hasSet: !!d.set } : null));
+  var names = Object.getOwnPropertyNames(location);
+  L('own props of location: ' + names.join(','));
+  L('Location.prototype own props: ' + Object.getOwnPropertyNames(Location.prototype).join(','));
+  try {
+    var od = Object.getOwnPropertyDescriptor(location, 'href');
+    if (od && od.set) {
+      Object.defineProperty(location, 'href', {
+        get: function () { return od.get.call(this); },
+        set: function (v) { console.log('__LOC__ HREF SET >>> ' + v); return od.set.call(this, v); },
+        configurable: od.configurable
+      });
+      L('SUCCESS: hooked own location.href');
+    } else L('no own set accessor');
+  } catch (e) { L('hook failed: ' + e.message); }
+  setTimeout(function () { console.log('--- setting location.href = about:blank ---'); location.href = 'about:blank'; }, 1200);
+})();
+</script>
+</body></html>

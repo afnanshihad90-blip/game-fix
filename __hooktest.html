@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html><head><title>HOOKTEST</title></head><body>
+<h1>HOOKTEST</h1>
+<script>
+(function () {
+  var L = (m) => console.log('__TRAP__ ' + m);
+  try {
+    var oOpen = Document.prototype.open;
+    Document.prototype.open = function () { L('document.open CALLED  stack=' + new Error().stack.split('\n')[2]); return oOpen.apply(this, arguments); };
+    L('hooked Document.prototype.open');
+  } catch (e) { L('open hook failed: ' + e.message); }
+  try {
+    var oWrite = Document.prototype.write;
+    Document.prototype.write = function () { L('document.write CALLED'); return oWrite.apply(this, arguments); };
+    L('hooked Document.prototype.write');
+  } catch (e) { L('write hook failed: ' + e.message); }
+  try {
+    var oHref = Object.getOwnPropertyDescriptor(Location.prototype, 'href');
+    Object.defineProperty(Location.prototype, 'href', { get: oHref.get, set: function (v) { L('location.href SET to ' + v); return oHref.set.call(this, v); }, configurable: true });
+    L('hooked Location.prototype.href');
+  } catch (e) { L('href hook failed: ' + e.message); }
+  try {
+    var oRep = Location.prototype.replace;
+    Location.prototype.replace = function (v) { L('location.replace CALLED ' + v); return oRep.call(this, v); };
+    L('hooked Location.prototype.replace');
+  } catch (e) { L('replace hook failed: ' + e.message); }
+})();
+setTimeout(function () {
+  console.log('--- now calling document.open() ---');
+  document.open(); document.write('<h1>REPLACED-DOC</h1>'); document.close();
+  console.log('--- doc url after open: ' + location.href);
+}, 1200);
+setTimeout(function () {
+  console.log('--- now setting location.href = about:blank ---');
+  location.href = 'about:blank';
+}, 3000);
+</script>
+</body></html>

@@ -1,0 +1,14 @@
+.BABYLON
+.bin
+.dds
+.glb
+.gltf
+.jpg
+.json
+.ktx
+.m4a
+.mp3
+.ogg
+.png
+.SVG
+.wav

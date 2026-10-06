@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html><head><title>CRUMBTEST</title></head><body>
+<h1>CRUMBTEST</h1>
+<script>
+function __C(n){try{var x=new XMLHttpRequest();x.open("GET","/__report?c="+n,false);x.send();}catch(e){console.log('CRUMB ERR '+n+' '+e.message);}}
+__C('T1-BEFORE');
+console.log('T1 done');
+setTimeout(function(){__C('T2-TIMEOUT');console.log('T2 done');},800);
+</script>
+</body></html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html><head><title>LOC2</title></head><body>
+<script>
+function __C(n){try{var x=new XMLHttpRequest();x.open("GET","/__report?c="+encodeURIComponent(n),false);x.send();}catch(e){}}
+(function(){
+  var out = [];
+  try { var d = Object.getOwnPropertyDescriptor(Window.prototype, 'location');
+    out.push('Window.prototype.location = ' + (d ? JSON.stringify({get:!!d.get,set:!!d.set,configurable:d.configurable,enumerable:d.enumerable}) : 'undefined'));
+  } catch(e){ out.push('WPE ' + e.message); }
+  try { var d2 = Object.getOwnPropertyDescriptor(window, 'location');
+    out.push('own window.location = ' + (d2 ? JSON.stringify({get:!!d2.get,set:!!d2.set,configurable:d2.configurable}) : 'undefined'));
+  } catch(e){ out.push('OWE ' + e.message); }
+  try { var keys = Object.getOwnPropertyNames(Location.prototype); out.push('Location.prototype names=' + keys.join(',')); } catch(e){ out.push('LPE ' + e.message); }
+  try { var d3 = Object.getOwnPropertyDescriptor(location, 'replace'); out.push('own location.replace = ' + (d3 ? JSON.stringify({writable:d3.writable,configurable:d3.configurable}) : 'undefined')); } catch(e){ out.push('LRE ' + e.message); }
+  try { var d4 = Object.getOwnPropertyDescriptor(location, 'href'); out.push('own location.href = ' + (d4 ? JSON.stringify({get:!!d4.get,set:!!d4.set,configurable:d4.configurable}) : 'undefined')); } catch(e){ out.push('LHE ' + e.message); }
+  try { var d5 = Object.getOwnPropertyDescriptor(Window.prototype,'open'); out.push('Window.prototype.open = ' + (d5 ? JSON.stringify({writable:d5.writable,configurable:d5.configurable}) : 'undefined')); } catch(e){ out.push('OPE ' + e.message); }
+  try { var d6 = Object.getOwnPropertyDescriptor(Window.prototype,'parent'); out.push('Window.prototype.parent = ' + (d6 ? JSON.stringify({get:!!d6.get,configurable:d6.configurable}) : 'undefined')); } catch(e){ out.push('PPE ' + e.message); }
+  try { var d7 = Object.getOwnPropertyDescriptor(Window.prototype,'top'); out.push('Window.prototype.top = ' + (d7 ? JSON.stringify({get:!!d7.get,configurable:d7.configurable}) : 'undefined')); } catch(e){ out.push('TPE ' + e.message); }
+  __C(out.join(' | '));
+})();
+</script>
+</body></html>
